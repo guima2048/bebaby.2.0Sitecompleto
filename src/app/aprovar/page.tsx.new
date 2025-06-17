@@ -1,0 +1,149 @@
+'use client';
+
+import { useState } from 'react';
+
+const initialUserModel = {
+  id: { type: 'string', description: 'Identificador único do usuário (UUID)' },
+  username: { type: 'string', description: 'Nome de usuário (máx. 12 caracteres, no máximo 5 números juntos ou separados)' },
+  email: { type: 'string', description: 'E-mail do usuário (único)' },
+  passwordHash: { type: 'string', description: 'Hash da senha' },
+  gender: { type: 'enum', values: ['masculino', 'feminino'], description: 'Gênero' },
+  oQueSou: { type: 'enum', values: ['Sugar Baby', 'Sugar Daddy/Mommy'], description: 'Tipo de perfil' },
+  accountType: { type: 'enum', values: ['basic', 'premium', 'vip'], description: 'Tipo de conta/plano' },
+  role: { type: 'enum', values: ['user', 'admin'], description: 'Permissão do usuário' },
+  status: { type: 'enum', values: ['pending', 'active', 'banned', 'deleted'], description: 'Status da conta' },
+  emailVerified: { type: 'boolean', description: 'E-mail verificado?' },
+  lastLogin: { type: 'datetime', description: 'Último login (data e hora)' },
+  createdAt: { type: 'date', description: 'Data de criação' },
+  updatedAt: { type: 'date', description: 'Última atualização' }
+};
+
+const initialAdminModel = {
+  id: { type: 'string', description: 'Identificador único do admin (UUID)' },
+  email: { type: 'string', description: 'E-mail do admin (único)' },
+  passwordHash: { type: 'string', description: 'Hash da senha' },
+  role: { type: 'enum', values: ['admin', 'super_admin'], description: 'Nível de permissão' },
+  status: { type: 'enum', values: ['active', 'inactive', 'banned'], description: 'Status da conta' },
+  twoFactorEnabled: { type: 'boolean', description: '2FA ativado?' },
+  twoFactorSecret: { type: 'string', description: 'Chave secreta do 2FA' },
+  lastLogin: { type: 'datetime', description: 'Último login (data e hora)' },
+  lastTwoFactorAt: { type: 'datetime', description: 'Última verificação 2FA' },
+  loginAttempts: { type: 'number', description: 'Tentativas de login (reset após 24h)' },
+  blockedUntil: { type: 'datetime', description: 'Bloqueado até (se exceder tentativas)' },
+  createdAt: { type: 'date', description: 'Data de criação' },
+  updatedAt: { type: 'date', description: 'Última atualização' }
+};
+
+export default function AprovarModelPage() {
+  const [activeTab, setActiveTab] = useState('user');
+  const [userModel, setUserModel] = useState(initialUserModel);
+  const [adminModel, setAdminModel] = useState(initialAdminModel);
+  const [approvedUser, setApprovedUser] = useState(false);
+  const [approvedAdmin, setApprovedAdmin] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [comment, setComment] = useState('');
+
+  const handleEdit = (key, field, value, model, setModel) => {
+    setModel(prev => ({
+      ...prev,
+      [key]: { ...prev[key], [field]: value }
+    }));
+  };
+
+  const renderTable = (model, setModel, initialModel, title) => {
+    return (
+      <div className="mb-8">
+        <h2 className="text-xl font-bold mb-2">{title}</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full border">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="p-2 border">Campo</th>
+                <th className="p-2 border">Tipo</th>
+                <th className="p-2 border">Descrição</th>
+                <th className="p-2 border">Valores (se enum)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(model).map(([key, value]) => (
+                <tr key={key}>
+                  <td className="p-2 border font-mono">{key}</td>
+                  <td className="p-2 border">{value.type}</td>
+                  <td className="p-2 border">{value.description}</td>
+                  <td className="p-2 border text-xs">
+                    {value.type === 'enum' ? value.values.join(', ') : '-'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-white p-8">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-2xl font-bold mb-4">Aprovação de Modelagens</h1>
+        
+        <div className="mb-6 flex gap-4 border-b">
+          <button
+            className={`px-4 py-2 ${activeTab === 'user' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-600'}`}
+            onClick={() => setActiveTab('user')}
+          >
+            Tabela User
+          </button>
+          <button
+            className={`px-4 py-2 ${activeTab === 'admin' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-600'}`}
+            onClick={() => setActiveTab('admin')}
+          >
+            Tabela Admin
+          </button>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-sm p-4">
+          {activeTab === 'user' ? (
+            renderTable(userModel, setUserModel, initialUserModel, 'Modelagem: Tabela User')
+          ) : (
+            renderTable(adminModel, setAdminModel, initialAdminModel, 'Modelagem: Tabela Admin')
+          )}
+
+          <div className="mt-4 flex gap-2">
+            <button
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+              onClick={() => activeTab === 'user' ? setApprovedUser(true) : setApprovedAdmin(true)}
+            >
+              {activeTab === 'user' ? 'Aprovar User' : 'Aprovar Admin'}
+            </button>
+          </div>
+
+          <div className="mt-4">
+            <label className="block text-sm mb-1">Comentário (opcional):</label>
+            <textarea
+              className="w-full border rounded px-2 py-1"
+              rows={2}
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Adicione um comentário sobre as alterações..."
+            />
+          </div>
+
+          <div className="mt-8 p-4 bg-gray-50 rounded">
+            <h3 className="font-semibold mb-2">Status de Aprovação:</h3>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <div className={`w-3 h-3 rounded-full ${approvedUser ? 'bg-green-500' : 'bg-gray-300'}`} />
+                <span>Tabela User: {approvedUser ? 'Aprovada' : 'Pendente'}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className={`w-3 h-3 rounded-full ${approvedAdmin ? 'bg-green-500' : 'bg-gray-300'}`} />
+                <span>Tabela Admin: {approvedAdmin ? 'Aprovada' : 'Pendente'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+} 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { roadmapItems } from '@/data/roadmap';
+import { roadmapItems } from '../../../../data/roadmap';
 import fs from 'fs/promises';
 import path from 'path';
 

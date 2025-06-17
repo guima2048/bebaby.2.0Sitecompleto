@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { roadmapItems as initialRoadmapItems } from '../../data/roadmap';
-import { RoadmapItem } from '../../types/roadmap';
+import { RoadmapItem, RoadmapStatus } from '../../types/roadmap';
 import { DateClient } from './DateClient';
 
 const categoryLabels: Record<string, string> = {
@@ -44,16 +44,16 @@ export default function RoadmapPage() {
       const newSubtasks = subtasks.map(st => {
         if (st.id !== subtaskId) return st;
         if (st.status === 'approved') {
-          return { ...st, status: 'pending', approvedAt: undefined, approvedBy: undefined };
+          return { ...st, status: 'pending' as RoadmapStatus, approvedAt: undefined, approvedBy: undefined };
         }
-        return { ...st, status: 'approved', approvedAt: new Date().toISOString(), approvedBy: 'admin' };
+        return { ...st, status: 'approved' as RoadmapStatus, approvedAt: new Date().toISOString(), approvedBy: 'admin' };
       });
       // Atualiza status do item se todas subtarefas aprovadas
       const allApproved = newSubtasks.length > 0 && newSubtasks.every(st => st.status === 'approved');
       return {
         ...item,
         subtasks: newSubtasks,
-        status: allApproved ? 'approved' : 'pending',
+        status: allApproved ? 'approved' as RoadmapStatus : 'pending' as RoadmapStatus,
         approvedAt: allApproved ? new Date().toISOString() : undefined,
         approvedBy: allApproved ? 'admin' : undefined,
       };

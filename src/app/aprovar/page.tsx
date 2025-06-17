@@ -91,16 +91,19 @@ export default function AprovarModelPage() {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(model).map(([key, value]) => (
-              <tr key={key}>
-                <td className="p-2 border font-mono">{key}</td>
-                <td className="p-2 border">{value.type}</td>
-                <td className="p-2 border">{value.description}</td>
-                <td className="p-2 border text-xs">
-                  {(value.type === 'enum' || value.type === 'array') && value.values ? value.values.join(', ') : '-'}
-                </td>
-              </tr>
-            ))}
+            {Object.entries(model).map(([key, value]) => {
+              const v = value as { type: string; description?: string; values?: string[] };
+              return (
+                <tr key={key}>
+                  <td className="p-2 border font-mono">{key}</td>
+                  <td className="p-2 border">{v.type}</td>
+                  <td className="p-2 border">{v.description}</td>
+                  <td className="p-2 border text-xs">
+                    {(v.type === 'enum' || v.type === 'array') && v.values ? v.values.join(', ') : '-'}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -339,180 +342,5 @@ const Admin2FAPage = () => {
   );
 };
 
-// API Routes
-const AdminLoginRoute = async (req: Request) => {
-  try {
-    const { email, senha } = await req.json();
-
-    // Simulação de autenticação
-    if (email === 'admin@exemplo.com' && senha === 'senha123') {
-      // Gerar token temporário para 2FA
-      const tokenTemp = 'temp_' + Math.random().toString(36).substring(7);
-      
-      // Salvar token em cookie seguro
-      const cookieStore = cookies();
-      cookieStore.set('admin_temp_token', tokenTemp, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 300 // 5 minutos
-      });
-
-      // TODO: Enviar código 2FA por email
-      console.log('Código 2FA: 123456');
-
-      return NextResponse.json({ success: true });
-    }
-
-    return NextResponse.json(
-      { message: 'Credenciais inválidas' },
-      { status: 401 }
-    );
-  } catch (error) {
-    console.error('Erro no login:', error);
-    return NextResponse.json(
-      { message: 'Erro interno do servidor' },
-      { status: 500 }
-    );
-  }
-};
-
-const Admin2FAVerifyRoute = async (req: Request) => {
-  try {
-    const { codigo } = await req.json();
-    const cookieStore = cookies();
-    const tokenTemp = cookieStore.get('admin_temp_token');
-
-    if (!tokenTemp) {
-      return NextResponse.json(
-        { message: 'Sessão expirada' },
-        { status: 401 }
-      );
-    }
-
-    // TODO: Implementar validação real do código 2FA
-    if (codigo === '123456') {
-      // Gerar JWT
-      const token = 'jwt_' + Math.random().toString(36).substring(7);
-      
-      // Deletar token temporário
-      cookieStore.delete('admin_temp_token');
-      
-      // Salvar JWT em cookie seguro
-      cookieStore.set('admin_token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 86400 // 24 horas
-      });
-
-      return NextResponse.json({ success: true });
-    }
-
-    return NextResponse.json(
-      { message: 'Código inválido' },
-      { status: 401 }
-    );
-  } catch (error) {
-    console.error('Erro na verificação 2FA:', error);
-    return NextResponse.json(
-      { message: 'Erro interno do servidor' },
-      { status: 500 }
-    );
-  }
-};
-
-/*
-============================================================
-CÓDIGOS DE BACKEND/API UTILIZADOS NO PROJETO (NÃO EXECUTÁVEIS AQUI)
-============================================================
-
-// 🔒 PROTEGIDO: Está proibido alterar qualquer coisa neste bloco sem autorização expressa do admin responsável pelo projeto.
-// Se precisar modificar, solicite aprovação formal do responsável.
-// Senha de aprovação: 77330011
-
-// --- src/app/api/admin/login/route.ts ---
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-
-export async function POST(req: Request) {
-  try {
-    const { email, senha } = await req.json();
-    // Simulação de autenticação
-    if (email === 'admin@exemplo.com' && senha === 'senha123') {
-      // Gerar token temporário para 2FA
-      const tokenTemp = 'temp_' + Math.random().toString(36).substring(7);
-      // Salvar token em cookie seguro
-      cookies().set('admin_temp_token', tokenTemp, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 300 // 5 minutos
-      });
-      // TODO: Enviar código 2FA por email
-      console.log('Código 2FA: 123456');
-      return NextResponse.json({ success: true });
-    }
-    return NextResponse.json(
-      { message: 'Credenciais inválidas' },
-      { status: 401 }
-    );
-  } catch (error) {
-    console.error('Erro no login:', error);
-    return NextResponse.json(
-      { message: 'Erro interno do servidor' },
-      { status: 500 }
-    );
-  }
-}
-
-// --- src/app/api/admin/2fa/verify/route.ts ---
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-
-export async function POST(req: Request) {
-  try {
-    const { codigo } = await req.json();
-    const cookieStore = cookies();
-    const tokenTemp = cookieStore.get('admin_temp_token');
-
-    if (!tokenTemp) {
-      return NextResponse.json(
-        { message: 'Sessão expirada' },
-        { status: 401 }
-      );
-    }
-
-    // TODO: Implementar validação real do código 2FA
-    if (codigo === '123456') {
-      // Gerar JWT
-      const token = 'jwt_' + Math.random().toString(36).substring(7);
-      // Deletar token temporário
-      cookieStore.delete('admin_temp_token');
-      // Salvar JWT em cookie seguro
-      cookieStore.set('admin_token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 86400 // 24 horas
-      });
-      return NextResponse.json({ success: true });
-    }
-
-    return NextResponse.json(
-      { message: 'Código inválido' },
-      { status: 401 }
-    );
-  } catch (error) {
-    console.error('Erro na verificação 2FA:', error);
-    return NextResponse.json(
-      { message: 'Erro interno do servidor' },
-      { status: 500 }
-    );
-  }
-}
-
-============================================================
-FIM DOS CÓDIGOS DE BACKEND/API
-============================================================
-*/ 
+// (Blocos de backend/API removidos e movê-los para src/docs/admin-api-examples.md)
+// ... existing code ... 

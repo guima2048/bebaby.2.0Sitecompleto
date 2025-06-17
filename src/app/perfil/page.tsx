@@ -362,6 +362,13 @@ export default function Perfil() {
             <div className="flex flex-col gap-1">
               <span className="font-extrabold text-2xl leading-tight tracking-tight drop-shadow-lg text-white flex items-center gap-2">
                 {user.nomeCompleto}
+                {user.statusVerificacao === "verificado" && (
+                  <span className="ml-1 text-lg" title="Verificado">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 13l4 4L19 7" stroke="#FF2800" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                )}
               </span>
               <span className="text-base flex items-center gap-1 font-bold drop-shadow-lg" style={{ color: '#FF2800' }}>
                 {calcularIdade(user.dataNascimento)} anos

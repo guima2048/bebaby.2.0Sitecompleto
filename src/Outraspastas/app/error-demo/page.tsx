@@ -3,6 +3,7 @@ import { ErrorBoundary } from "../components/ErrorBoundary";
 import SeoHead from "../components/SeoHead";
 
 function BuggyComponent() {
+  return <div>Este componente vai lançar um erro!</div>;
   throw new Error("Erro proposital!");
 }
 

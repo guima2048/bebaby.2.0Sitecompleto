@@ -64,7 +64,7 @@ export default function RoadmapPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Roadmap de Desenvolvimento</h1>
+      <h1 className="text-3xl font-bold mb-4">Bebaby.app</h1>
       <div className="mb-6">
         <div className="flex items-center justify-between mb-1">
           <span className="text-sm font-medium text-blue-700">Progresso geral</span>

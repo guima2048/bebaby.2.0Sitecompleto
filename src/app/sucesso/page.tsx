@@ -10,7 +10,7 @@ export default function Sucesso() {
     <main className="relative min-h-screen w-full font-sans flex flex-col items-center justify-center">
       {/* Background escurecido igual landing */}
       <div className="absolute inset-0 -z-10">
-        <Image src="/main_impact.png" alt="Fundo" fill className="object-cover w-full h-full" priority />
+        <Image src="/main_impact.webp" alt="Fundo" fill className="object-cover w-full h-full" priority />
         <div className="absolute inset-0 bg-gradient-to-b from-[#a259cbaa] to-[#6d2c91aa]" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80" />
       </div>

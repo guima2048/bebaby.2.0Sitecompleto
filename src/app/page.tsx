@@ -85,7 +85,15 @@ export default function Home() {
         ogDescription="Encontre pessoas maduras e compatíveis em um ambiente seguro e privativo."
       />
       {/* Banner no topo */}
-      <section className="relative w-full h-[90vh] md:h-[400px] flex items-end justify-center bg-cover bg-center" style={{ backgroundImage: "url('/main_impact.png')" }}>
+      <section className="relative w-full h-[90vh] md:h-[400px] flex items-end justify-center bg-cover bg-center" style={{ backgroundImage: "none" }}>
+        <Image
+          src="/main_impact.webp"
+          alt="Banner principal BeBaby"
+          fill
+          style={{ objectFit: 'cover', zIndex: 0 }}
+          priority
+          quality={80}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent" />
         {/* Botão do menu hamburguer no topo, só mobile */}
         <button
@@ -128,7 +136,15 @@ export default function Home() {
         {/* Sugar Babies */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-12 max-w-4xl mx-auto mb-12">
           <div className="w-full md:w-1/2 flex justify-center md:justify-end">
-            <img src="/exemplo12.jpg" alt="Sugar Baby" className="w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-[#a259cb] shadow-lg object-cover" />
+            <Image
+              src="/exemplo12.webp"
+              alt="Sugar Baby"
+              width={192}
+              height={192}
+              className="rounded-full border-4 border-[#a259cb] shadow-lg object-cover"
+              quality={80}
+              priority
+            />
           </div>
           <div className="w-full md:w-1/2 flex flex-col justify-center md:justify-start text-center md:text-left">
             <h3 className="text-xl md:text-2xl font-bold text-[#a259cb] mb-2">Sugar Babies</h3>
@@ -140,7 +156,14 @@ export default function Home() {
         {/* Sugar Daddys */}
         <div className="flex flex-col md:flex-row-reverse items-center md:items-start gap-6 md:gap-12 max-w-4xl mx-auto mb-12">
           <div className="w-full md:w-1/2 flex justify-center md:justify-start">
-            <img src="/exemplo14.jpg" alt="Sugar Daddy" className="w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-[#6d2c91] shadow-lg object-cover" />
+            <Image
+              src="/exemplo14.webp"
+              alt="Sugar Daddy"
+              width={192}
+              height={192}
+              className="rounded-full border-4 border-[#6d2c91] shadow-lg object-cover"
+              quality={80}
+            />
           </div>
           <div className="w-full md:w-1/2 flex flex-col justify-center md:justify-start text-center md:text-left">
             <h3 className="text-xl md:text-2xl font-bold text-[#6d2c91] mb-2">Sugar Daddys</h3>
@@ -152,7 +175,14 @@ export default function Home() {
         {/* Sugar Mommy */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-12 max-w-4xl mx-auto mb-4">
           <div className="w-full md:w-1/2 flex justify-center md:justify-end">
-            <img src="/exemplo8.png" alt="Sugar Mommy" className="w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-[#a259cb] shadow-lg object-cover" />
+            <Image
+              src="/exemplo8.webp"
+              alt="Sugar Mommy"
+              width={192}
+              height={192}
+              className="rounded-full border-4 border-[#a259cb] shadow-lg object-cover"
+              quality={80}
+            />
           </div>
           <div className="w-full md:w-1/2 flex flex-col justify-center md:justify-start text-center md:text-left">
             <h3 className="text-xl md:text-2xl font-bold text-[#a259cb] mb-2">Sugar Mommy</h3>
@@ -171,7 +201,14 @@ export default function Home() {
             {/* Depoimento 1 */}
             <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex items-center gap-4 mb-4">
-                <img src="/exemplo12.jpg" alt="Maria" className="w-16 h-16 rounded-full object-cover border-2 border-[#a259cb]" />
+                <Image
+                  src="/exemplo12.webp"
+                  alt="Maria"
+                  width={64}
+                  height={64}
+                  className="rounded-full object-cover border-2 border-[#a259cb]"
+                  quality={80}
+                />
                 <div>
                   <h4 className="font-bold text-gray-800">Maria, 25</h4>
                   <p className="text-sm text-[#a259cb]">Sugar Baby</p>
@@ -182,7 +219,14 @@ export default function Home() {
             {/* Depoimento 2 */}
             <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex items-center gap-4 mb-4">
-                <img src="/exemplo14.jpg" alt="João" className="w-16 h-16 rounded-full object-cover border-2 border-[#6d2c91]" />
+                <Image
+                  src="/exemplo14.webp"
+                  alt="João"
+                  width={64}
+                  height={64}
+                  className="rounded-full object-cover border-2 border-[#6d2c91]"
+                  quality={80}
+                />
                 <div>
                   <h4 className="font-bold text-gray-800">João, 45</h4>
                   <p className="text-sm text-[#6d2c91]">Sugar Daddy</p>
@@ -193,7 +237,14 @@ export default function Home() {
             {/* Depoimento 3 */}
             <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex items-center gap-4 mb-4">
-                <img src="/exemplo8.png" alt="Ana" className="w-16 h-16 rounded-full object-cover border-2 border-[#a259cb]" />
+                <Image
+                  src="/exemplo8.webp"
+                  alt="Ana"
+                  width={64}
+                  height={64}
+                  className="rounded-full object-cover border-2 border-[#a259cb]"
+                  quality={80}
+                />
                 <div>
                   <h4 className="font-bold text-gray-800">Ana, 38</h4>
                   <p className="text-sm text-[#a259cb]">Sugar Mommy</p>

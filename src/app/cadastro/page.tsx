@@ -277,7 +277,7 @@ export default function CadastroPage() {
   return (
     <main className="relative min-h-screen w-full font-sans">
       {/* Banner com overlay preto */}
-      <section className="relative w-full h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/main_impact.png')" }}>
+      <section className="relative w-full h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/main_impact.webp')" }}>
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/60" />
         <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-4">
           <div className="w-full max-w-md bg-black/70 rounded-2xl p-8 shadow-2xl flex flex-col gap-6 animate-fade-in">
@@ -617,31 +617,31 @@ export default function CadastroPage() {
                         {formData.searchFor === 'homem_mulher' ? (
                           <>
                             <div className="aspect-[1/2] w-16 flex items-center justify-center overflow-hidden rounded-lg bg-black/30">
-                              <Image src="/exemplo5.png" alt="Exemplo 1" width={64} height={128} className="object-cover w-full h-full object-center" />
+                              <Image src="/exemplo5.webp" alt="Exemplo 1" width={64} height={128} className="object-cover w-full h-full object-center" />
                             </div>
                             <div className="aspect-[1/2] w-16 flex items-center justify-center overflow-hidden rounded-lg bg-black/30">
-                              <Image src="/exemplo6.png" alt="Exemplo 2" width={64} height={128} className="object-cover w-full h-full object-center" />
+                              <Image src="/exemplo6.webp" alt="Exemplo 2" width={64} height={128} className="object-cover w-full h-full object-center" />
                             </div>
                             <div className="aspect-[1/2] w-16 flex items-center justify-center overflow-hidden rounded-lg bg-black/30">
-                              <Image src="/exemplo7.png" alt="Exemplo 3" width={64} height={128} className="object-cover w-full h-full object-center" />
+                              <Image src="/exemplo7.webp" alt="Exemplo 3" width={64} height={128} className="object-cover w-full h-full object-center" />
                             </div>
                             <div className="aspect-[1/2] w-16 flex items-center justify-center overflow-hidden rounded-lg bg-black/30">
-                              <Image src="/exemplo8.png" alt="Exemplo 4" width={64} height={128} className="object-cover w-full h-full object-center" />
+                              <Image src="/exemplo8.webp" alt="Exemplo 4" width={64} height={128} className="object-cover w-full h-full object-center" />
                             </div>
                           </>
                         ) : (
                           <>
                             <div className="aspect-[1/2] w-16 flex items-center justify-center overflow-hidden rounded-lg bg-black/30">
-                              <Image src="/exemplo1.png" alt="Exemplo 1" width={64} height={128} className="object-cover w-full h-full object-center" />
+                              <Image src="/exemplo1.webp" alt="Exemplo 1" width={64} height={128} className="object-cover w-full h-full object-center" />
                             </div>
                             <div className="aspect-[1/2] w-16 flex items-center justify-center overflow-hidden rounded-lg bg-black/30">
-                              <Image src="/exemplo2.png" alt="Exemplo 2" width={64} height={128} className="object-cover w-full h-full object-center" />
+                              <Image src="/exemplo2.webp" alt="Exemplo 2" width={64} height={128} className="object-cover w-full h-full object-center" />
                             </div>
                             <div className="aspect-[1/2] w-16 flex items-center justify-center overflow-hidden rounded-lg bg-black/30">
-                              <Image src="/exemplo3.png" alt="Exemplo 3" width={64} height={128} className="object-cover w-full h-full object-center" />
+                              <Image src="/exemplo3.webp" alt="Exemplo 3" width={64} height={128} className="object-cover w-full h-full object-center" />
                             </div>
                             <div className="aspect-[1/2] w-16 flex items-center justify-center overflow-hidden rounded-lg bg-black/30">
-                              <Image src="/exemplo4.png" alt="Exemplo 4" width={64} height={128} className="object-cover w-full h-full object-center" />
+                              <Image src="/exemplo4.webp" alt="Exemplo 4" width={64} height={128} className="object-cover w-full h-full object-center" />
                             </div>
                           </>
                         )}

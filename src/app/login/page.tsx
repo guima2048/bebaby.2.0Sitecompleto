@@ -6,7 +6,7 @@ export default function LoginPage() {
     <main className="relative min-h-screen w-full font-sans">
       {/* Background image escurecida */}
       <div className="absolute inset-0 -z-10">
-        <Image src="/main_impact.png" alt="Fundo" fill className="object-cover w-full h-full" priority />
+        <Image src="/main_impact.webp" alt="Fundo" fill className="object-cover w-full h-full" priority />
         {/* Overlay preto para escurecer */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80" />
       </div>
